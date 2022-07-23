@@ -6,7 +6,7 @@ import qrcode
 
 class Qr_Code(models.Model):
     Qr_Name = models.CharField(("Name"), max_length=200)
-    Qr_Code = models.ImageField(("Code"), upload_to='qrMedia', blank = True)
+    Qr_Image = models.ImageField(("Code"), upload_to='qrMedia', blank = True)
 
     def __str__(self):
         return self.Qr_Name
@@ -19,6 +19,6 @@ class Qr_Code(models.Model):
         fname= f'Qr_Code-{self.Qr_Name}.png'
         buffer = BytesIO()
         canvas.save(buffer, 'PNG')
-        self.Qr_Code.save(fname, File(buffer), save=False)
+        self.Qr_Image.save(fname, File(buffer), save=False)
         canvas.close()
         super().save(*args, **kwargs)
