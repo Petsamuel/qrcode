@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+  Hi {{ user.username }}!
+  <p><a href="{% url 'logout' %}">Log Out</a></p>
+  <div>
+    <form method="post">
+      {% csrf_token %}
+      <h3>Enter a text or URL to generate a QR code</h3>
+      <div>
+        <span>
+          QR Code Text:
+        </span>
+        <input type="text" name="qr_code_text" autofocus>
+      </div>
+      <div>
+        <input type="submit" style="max-width: 200px;margin:auto">
+      </div>
+    </form>
+    <div>
+      <div style="margin:auto">
+        {{ svg|safe }}
+      </div>
+    </div>
+  </div>
+{% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">Log In</a>
+{% endif %}
+{% endblock %}
